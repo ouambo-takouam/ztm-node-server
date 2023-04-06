@@ -1,15 +1,25 @@
 const http = require('http');
 
-const hostname = '127.0.0.1';
 const port = 8000;
 
 const server = http.createServer((req, res) => {
-	console.log(req.body);
-	res.statusCode = 200;
-	res.setHeader('Content-Type', 'text/plain');
-	res.end('Hellooooooo');
+	console.log(req.url);
+	if (req.url === '/friends') {
+		res.statusCode = 200;
+		res.setHeader('Content-Type', 'application/json');
+		res.end(
+			JSON.stringify({
+				id: 1,
+				name: 'Patrick',
+			})
+		);
+	} else {
+		res.statusCode = 200;
+		res.setHeader('Content-Type', 'text/plain');
+		res.end('Hello World\n');
+	}
 });
 
-server.listen(port, hostname, () => {
+server.listen(port, () => {
 	console.log(`Listening to port ${port}`);
 });
